@@ -146,28 +146,28 @@
               ```
           - Lưu ý : Quan hệ đệ quy thường sử dụng ở các cây phân cấp như, Danh mục phân cấp cha con cháu chắt ,...
             - Thực Hành quan hệ đệ quy : 
-              - Tạo bảng : 
-                ```SQL
-                  CREATE TABLE category(
-                    id INT NOT NULL PRIMARY KEY,
-                    name TEXT,
-                    parent_id VARCHAR(10) FOREIGN KEY REFERENCES category(id)
-                  );
-															  INSERT INTO category VALUES(1, 'Danh mục 1', NULL);
-															  INSERT INTO category VALUES(2, 'Danh mục 2', 1);
-															  INSERT INTO category VALUES(3, 'Danh mục 3', 1);
-															  INSERT INTO category VALUES(4, 'Danh mục 4', 3);
-                  ```
-			  - Câu lệnh đệ quy :
+            - Tạo bảng : 
+              ```SQL
+                CREATE TABLE category(
+                  id INT NOT NULL PRIMARY KEY,
+                  name TEXT,
+                  parent_id VARCHAR(10) FOREIGN KEY REFERENCES category(id)
+                );
+                INSERT INTO category VALUES(1, 'Danh mục 1', NULL);
+                INSERT INTO category VALUES(2, 'Danh mục 2', 1);
+                INSERT INTO category VALUES(3, 'Danh mục 3', 1);
+                INSERT INTO category VALUES(4, 'Danh mục 4', 3);
+                ```
+              - Câu lệnh đệ quy :
                 - Lấy tất cả các danh mục cấp 1 :
-				  ```SQL
-						WITH RECURSIVE category_cap1 AS (
-						  SELECT * FROM category WHERE parent_id IS NULL
-						  UNION ALL
-						  SELECT * FROM category INNER JOIN category_cap1 ON category.parent_id = category_cap1.id
-						)
-						SELECT * FROM category_cap1;
-				  ```
+                  ```SQL
+                        WITH RECURSIVE category_cap1 AS (
+                          SELECT * FROM category WHERE parent_id IS NULL
+                          UNION ALL
+                          SELECT * FROM category INNER JOIN category_cap1 ON category.parent_id = category_cap1.id
+                        )
+                        SELECT * FROM category_cap1;
+                  ```
               - Lưu ý : 
                 - parent_id nếu là NULL thì là danh mục cấp 1 hay là danh mục cha.
    				
